@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Class BasePlayer">
+      <UniqueIdentifier>{1d1ae222-bac0-421c-98a6-85eb8363a559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Class Card">
+      <UniqueIdentifier>{04b6087c-3799-416c-8e6f-c42bed40c785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Class Deck">
+      <UniqueIdentifier>{9410f232-baad-4f77-adf5-2b40399ccd2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Class Game">
+      <UniqueIdentifier>{1e59685f-c3fd-490f-b040-34dcf9f914b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Class Hand">
+      <UniqueIdentifier>{2441be4b-e555-4c8a-95ce-4596af21fa32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Class House">
+      <UniqueIdentifier>{5d8bb8ec-64b3-42b4-b656-30d72103e8c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Class Player">
+      <UniqueIdentifier>{aded5f7e-e850-4a6c-9160-3bc39ab3b82f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="BasePlayer.cpp">
+      <Filter>Исходные файлы\Class BasePlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Исходные файлы\Class Card</Filter>
+    </ClCompile>
+    <ClCompile Include="Deck.cpp">
+      <Filter>Исходные файлы\Class Deck</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Исходные файлы\Class Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Hand.cpp">
+      <Filter>Исходные файлы\Class Hand</Filter>
+    </ClCompile>
+    <ClCompile Include="House.cpp">
+      <Filter>Исходные файлы\Class House</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Исходные файлы\Class Player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BasePlayer.h">
+      <Filter>Исходные файлы\Class BasePlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>Исходные файлы\Class Card</Filter>
+    </ClInclude>
+    <ClInclude Include="Deck.h">
+      <Filter>Исходные файлы\Class Deck</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Исходные файлы\Class Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Hand.h">
+      <Filter>Исходные файлы\Class Hand</Filter>
+    </ClInclude>
+    <ClInclude Include="House.h">
+      <Filter>Исходные файлы\Class House</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Исходные файлы\Class Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
