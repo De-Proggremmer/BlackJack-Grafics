@@ -2,7 +2,7 @@
 
 Hand::Hand()
 {
-	m_Cards.reserve(7);
+	m_Cards.reserve(11);
 }
 Hand::~Hand()
 {
@@ -46,7 +46,7 @@ int Hand::GetTotal() const
 
 	for (iter = m_Cards.begin(); iter != m_Cards.end(); iter++)
 	{
-		if ((*iter)->GetValue() == Card::ACE)
+		if ((*iter)->GetValue() == 1) // провекра на туза, который возвращает значение 1, чтобы работала его двойственность
 		{
 			containsAce = true;
 		}
