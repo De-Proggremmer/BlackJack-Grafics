@@ -14,6 +14,7 @@ Game::Game(const vector<string>& names)
 	m_Deck.Populate();
 	m_Deck.Shuffle();
 }
+
 Game::~Game()
 {
 }

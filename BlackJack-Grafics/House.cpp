@@ -7,7 +7,7 @@ House::~House()
 {
 }
 
-bool House::IsHitting() const
+bool House::IsHitting(sf::RenderWindow& window, sf::Cursor& cursor) const
 {
 	return (GetTotal() <= 16);
 }
@@ -17,9 +17,5 @@ void House::FlipFirstCard()
 	if (!(m_Cards.empty()))
 	{
 		m_Cards[0]->Flip();
-	}
-	else
-	{
-		cout << "No card to flip!" << endl;
 	}
 }

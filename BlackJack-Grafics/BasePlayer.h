@@ -15,7 +15,7 @@ public:
 	BasePlayer(const string& name = "");
 	virtual ~BasePlayer();
 
-	virtual bool IsHitting() const = 0;
+	virtual bool IsHitting(sf::RenderWindow& window, sf::Cursor& cursor) const = 0;
 	bool IsBusted() const;
 	string Bust() const;
 

@@ -8,7 +8,7 @@ public:
 	House(const string& name = "House");
 	virtual ~House();
 
-	virtual bool IsHitting() const;
+	virtual bool IsHitting(sf::RenderWindow& window, sf::Cursor& cursor) const;
 
 	void FlipFirstCard();
 };

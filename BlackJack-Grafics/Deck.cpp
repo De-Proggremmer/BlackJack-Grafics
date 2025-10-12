@@ -36,10 +36,6 @@ void Deck::Deal(Hand& aHand)
 		aHand.Add(m_Cards.back());
 		m_Cards.pop_back();
 	}
-	else
-	{
-		cout << "Out of cards. Unable to deal.";
-	}
 }
 void Deck::AdditionalCards(BasePlayer& aBasePlayer)
 {
