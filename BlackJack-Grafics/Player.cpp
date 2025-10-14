@@ -21,7 +21,7 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 	question.setCharacterSize(30);
 	question.setFillColor(sf::Color::Transparent);
 	question.setPosition(810, 300);
-	question.setString("Вы хотите еще одну карту?");
+	question.setString("dddddddd");
 
 
 	sf::Texture y_button;
@@ -50,6 +50,8 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 	window.draw(Y_botton);
 	window.draw(N_botton);
 
+	window.display();
+
 	bool hitting;
 
 	while (true)
@@ -66,10 +68,12 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 					if (Y_botton.getGlobalBounds().contains(mousePos.x, mousePos.y))
 					{
 						hitting = true;
+						return hitting;
 					}
 					else if (N_botton.getGlobalBounds().contains(mousePos.x, mousePos.y))
 					{
 						hitting = false;
+						return hitting;
 					}
 				}
 			}
@@ -89,7 +93,6 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 		}
 	}
 
-	return hitting;
 }
 
 void Player::Win(sf::RenderWindow& window) const
