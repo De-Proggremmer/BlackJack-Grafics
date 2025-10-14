@@ -7,10 +7,10 @@
 class Game
 {
 public:
-	Game(const vector<string>& names);
+	Game(const vector<string> names, vector<sf::Sprite> cards);
 	~Game();
 
-	void Play();
+	void Play(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b);
 
 private:
 	Deck m_Deck;

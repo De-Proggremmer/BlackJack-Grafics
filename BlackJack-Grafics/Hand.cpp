@@ -28,7 +28,11 @@ void Hand::Clear()
 
 int Hand::GetTotal() const
 {
-	if ((m_Cards.empty()) or (m_Cards[0]->GetValue() == 0))
+	if (m_Cards.empty())
+	{
+		return 0;
+	}
+	else if (m_Cards[0]->GetValue() == 0)
 	{
 		return 0;
 	}

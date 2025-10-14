@@ -1,5 +1,7 @@
 #include "House.h"
 
+#include <vector>
+
 House::House(const string& name) : BasePlayer(name)
 {
 }
@@ -16,6 +18,6 @@ void House::FlipFirstCard()
 {
 	if (!(m_Cards.empty()))
 	{
-		m_Cards[0]->Flip();
+		// m_Cards[0]->Flip();
 	}
 }

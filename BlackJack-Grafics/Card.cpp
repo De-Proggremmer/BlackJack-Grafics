@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Card::Card(rank r, suit s, bool ifu, sf::Sprite *cardface_s, sf::Sprite *cover_s) : m_Rank(r), m_Suit(s), m_IsFaceUp(ifu), m_CardFaceSprite(cardface_s), m_CoverSprite(cover_s)
+Card::Card(rank r, suit s, sf::Sprite cardface_s, sf::Sprite cover_s, bool ifu) : m_Rank(r), m_Suit(s), m_IsFaceUp(ifu), m_CardFaceSprite(cardface_s), m_CoverSprite(cover_s)
 {
 }
 
@@ -18,7 +18,7 @@ int Card::GetValue() const
 
 		if (value > 10)
 		{
-			if (value != 13)
+			if (value != ACE)
 			{
 				value = 10;
 			}
@@ -32,15 +32,20 @@ int Card::GetValue() const
 	return value;
 }
 
+sf::Sprite Card::GetSprite() const
+{
+	return m_CardSprite;
+}
+
 void Card::Flip()
 {
 	if (m_IsFaceUp)
 	{
-		m_CardSprite = *m_CoverSprite;
+		m_CardSprite = m_CoverSprite;
 	}
 	else
 	{
-		m_CardSprite = *m_CardFaceSprite;
+		m_CardSprite = m_CardFaceSprite;
 	}
 	m_IsFaceUp = !(m_IsFaceUp);
 }

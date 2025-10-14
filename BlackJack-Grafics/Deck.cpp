@@ -1,10 +1,11 @@
 #include <algorithm>
+#include <vector>
 
 #include "Deck.h"
 
-Deck::Deck()
+Deck::Deck(vector<sf::Sprite> face): m_cards(face)
 {
-	m_Cards.reserve(52);
+	m_Cards.reserve(54);
 	Populate();
 }
 Deck::~Deck()
@@ -15,11 +16,11 @@ void Deck::Populate()
 {
 	Clear();
 
-	for (int s = Card::CLUBS; s <= Card::SPADES; s++)
+	for (int s = Card::CLUBS; s <= Card::DIAMONDS; s++)
 	{
-		for (int r = Card::ACE; r <= Card::KING; r++)
+		for (int r = Card::TWO; r <= Card::ACE; r++)
 		{
-			Add(new Card(static_cast<Card::rank>(r), static_cast<Card::suit>(s)));
+			Add(new Card(static_cast<Card::rank>(r), static_cast<Card::suit>(s), m_cards[0], m_cards[0]));
 		}
 	}
 }
@@ -29,19 +30,21 @@ void Deck::Shuffle()
 	random_shuffle(m_Cards.begin(), m_Cards.end());
 }
 
-void Deck::Deal(Hand& aHand)
+Card Deck::Deal(Hand& aHand)
 {
 	if (!(m_Cards.empty()))
 	{
-		aHand.Add(m_Cards.back());
+		Card *card = m_Cards.back();
+		aHand.Add(card);
 		m_Cards.pop_back();
+		return *card;
 	}
 }
-void Deck::AdditionalCards(BasePlayer& aBasePlayer)
+void Deck::AdditionalCards(BasePlayer& aBasePlayer, sf::RenderWindow& window, sf::Cursor& cursor)
 {
 	cout << endl;
 
-	while (!(aBasePlayer.IsBusted()) && aBasePlayer.IsHitting())
+	while (!(aBasePlayer.IsBusted()) && aBasePlayer.IsHitting(window, cursor))
 	{
 		Deal(aBasePlayer);
 		// cout << aBasePlayer << endl;

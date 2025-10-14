@@ -1,6 +1,8 @@
 #include "Game.h"
 
-Game::Game(const vector<string>& names)
+#include <vector>
+
+Game::Game(const vector<string> names, vector<sf::Sprite> cards): m_Deck(cards)
 {
 	vector<string>::const_iterator pName;
 
@@ -19,37 +21,74 @@ Game::~Game()
 {
 }
 
-void Game::Play()
+void Game::Play(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b)
 {
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					// Получение позиции клика
+					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+					if (ex_b.getGlobalBounds().contains(mousePos.x, mousePos.y))
+					{
+						window.close();
+					}
+				}
+			}
+		}
+
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+		if (ex_b.getGlobalBounds().contains(mousePos.x, mousePos.y))
+		{
+			cursor.loadFromSystem(sf::Cursor::Hand);
+			window.setMouseCursor(cursor);
+		}
+		else
+		{
+			cursor.loadFromSystem(sf::Cursor::Arrow);
+			window.setMouseCursor(cursor);
+		}
+
+		window.clear(sf::Color::White);
+
+		window.display();
+	}
+
+
+
+
 	vector<Player>::iterator pPlayer;
+
+	vector<sf::Sprite> Player_cards;
+	vector<sf::Sprite> House_cards;
 
 	for (int i = 0; i < 2; i++)
 	{
 		for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
 		{
-			m_Deck.Deal(*pPlayer);
+			Player_cards.push_back(m_Deck.Deal(*pPlayer).GetSprite());
 		}
 
-		m_Deck.Deal(m_House);
+		House_cards.push_back(m_Deck.Deal(m_House).GetSprite());
 	}
 
 	m_House.FlipFirstCard();
 
 	for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
 	{
-		cout << *pPlayer << endl;
-	}
-
-	cout << m_House << endl;
-
-	for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
-	{
-		m_Deck.AdditionalCards(*pPlayer);
+		m_Deck.AdditionalCards(*pPlayer, window, cursor);
 	}
 
 	m_House.FlipFirstCard();
-	cout << endl << m_House;
-	m_Deck.AdditionalCards(m_House);
+
+	m_Deck.AdditionalCards(m_House, window, cursor);
 
 	if (m_House.IsBusted())
 	{
@@ -57,7 +96,7 @@ void Game::Play()
 		{
 			if (!(pPlayer->IsBusted()))
 			{
-				pPlayer->Win();
+				pPlayer->Win(window);
 			}
 		}
 	}
@@ -69,15 +108,15 @@ void Game::Play()
 			{
 				if (pPlayer->GetTotal() > m_House.GetTotal())
 				{
-					pPlayer->Win();
+					pPlayer->Win(window);
 				}
 				else if (pPlayer->GetTotal() < m_House.GetTotal())
 				{
-					pPlayer->Lose();
+					pPlayer->Lose(window);
 				}
 				else
 				{
-					pPlayer->Push();
+					pPlayer->Draw(window);
 				}
 			}
 		}
