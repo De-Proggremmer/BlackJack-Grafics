@@ -6,15 +6,15 @@
 class Deck : public Hand
 {
 public:
-	Deck(vector<sf::Sprite> face);
+	Deck();
 	virtual ~Deck();
 
 	void Populate();
 
 	void Shuffle();
 
-	Card Deal(Hand& aHand);
+	Card* Deal(Hand& aHand);
 	void AdditionalCards(BasePlayer& aBasePlayer, sf::RenderWindow& window, sf::Cursor& cursor);
 private:
-	vector<sf::Sprite> m_cards;
+	vector<sf::Texture> m_cards;
 };

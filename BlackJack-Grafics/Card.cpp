@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Card::Card(rank r, suit s, sf::Sprite cardface_s, sf::Sprite cover_s, bool ifu) : m_Rank(r), m_Suit(s), m_IsFaceUp(ifu), m_CardFaceSprite(cardface_s), m_CoverSprite(cover_s)
+Card::Card(rank r, suit s, sf::Texture cardface_s, sf::Texture cover_s, bool ifu) : m_Rank(r), m_Suit(s), m_IsFaceUp(ifu), m_CardFaceSprite(cardface_s), m_CoverSprite(cover_s), m_CardSprite(cardface_s)
 {
 }
 
@@ -32,7 +32,7 @@ int Card::GetValue() const
 	return value;
 }
 
-sf::Sprite Card::GetSprite() const
+sf::Texture& Card::GetTexture() const
 {
 	return m_CardSprite;
 }

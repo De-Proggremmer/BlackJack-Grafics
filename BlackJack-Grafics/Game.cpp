@@ -2,7 +2,7 @@
 
 #include <vector>
 
-Game::Game(const vector<string> names, vector<sf::Sprite> cards): m_Deck(cards)
+Game::Game(const vector<string> names)
 {
 	vector<string>::const_iterator pName;
 
@@ -21,29 +21,62 @@ Game::~Game()
 {
 }
 
-void Game::Play(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b)
+void Game::Draw(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b)
 {
-	vector<Player>::iterator pPlayer;
-
-	House& p_House = m_House;
-
-	vector<sf::Sprite> Player_cards;
-	vector<sf::Sprite> House_cards;
-
-	for (int i = 0; i < 2; i++)
+	bool flg = true;
+	while (flg)
 	{
-		for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
+		vector<Player>::iterator pPlayer;
+
+		House& p_House = m_House;
+
+		vector<sf::Texture> Player_cards;
+		vector<sf::Texture> House_cards;
+
+		for (int i = 0; i < 2; i++)
 		{
-			Player_cards.push_back(m_Deck.Deal(*pPlayer).GetSprite());
+			for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
+			{
+				sf::Sprite spr;
+				sf::Texture texture = m_Deck.Deal(*pPlayer)->GetTexture();
+				spr.setTexture(texture);
+				//Player_cards.push_back(spr);
+				cout << texture.getSize().x << "" << texture.getSize().y;
+				window.clear(sf::Color::White);
+				window.draw(spr);
+				window.display();
+				sf::sleep(sf::seconds(1));
+
+			}
+
+			House_cards.push_back(m_Deck.Deal(m_House)->GetTexture());
 		}
 
-		House_cards.push_back(m_Deck.Deal(m_House).GetSprite());
-	}
+		window.clear(sf::Color::White);
 
-	m_House.FlipFirstCard();
+		/*for (vector<sf::Texture>::iterator i = House_cards.begin(); i != House_cards.end(); i++)
+		{
+			window.draw(*i);
+		}
 
-	while (window.isOpen())
-	{
+		for (vector<sf::Texture>::iterator i = Player_cards.begin(); i != Player_cards.end(); i++)
+		{
+			window.draw(*i);
+		}*/
+
+		window.display();
+
+
+		sf::Font pixel_font;
+		if (!(pixel_font.loadFromFile("Materials/Fonts/PixelFont.otf")))
+		{
+			cout << "font err!" << endl;
+		}
+
+		sf::sleep(sf::seconds(2));
+
+		m_House.FlipFirstCard();
+
 		for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
 		{
 			m_Deck.AdditionalCards(*pPlayer, window, cursor);
@@ -53,6 +86,8 @@ void Game::Play(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b)
 
 		m_Deck.AdditionalCards(p_House, window, cursor);
 
+		window.clear();
+
 		if (m_House.IsBusted())
 		{
 			for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
@@ -60,6 +95,10 @@ void Game::Play(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b)
 				if (!(pPlayer->IsBusted()))
 				{
 					pPlayer->Win(window);
+				}
+				else
+				{
+					pPlayer->Draw(window);
 				}
 			}
 		}
@@ -82,22 +121,47 @@ void Game::Play(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b)
 						pPlayer->Draw(window);
 					}
 				}
+				else
+				{
+					pPlayer->Lose(window);
+				}
 			}
 		}
 
-
-		sf::Event event;
-		while (window.pollEvent(event))
+		for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
 		{
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				if (event.mouseButton.button == sf::Mouse::Left)
-				{
-					// Получение позиции клика
-					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+			pPlayer->Clear();
+		}
+		m_House.Clear();
 
-					if (ex_b.getGlobalBounds().contains(mousePos.x, mousePos.y))
+		while (window.isOpen())
+		{
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::MouseButtonPressed)
+				{
+					if (event.mouseButton.button == sf::Mouse::Left)
 					{
+						// Получение позиции клика
+						sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+						if (ex_b.getGlobalBounds().contains(mousePos.x, mousePos.y))
+						{
+							flg = false;
+
+							for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
+							{
+								pPlayer->Clear();
+							}
+							m_House.Clear();
+							window.close();
+						}
+					}
+					else if (event.Closed)
+					{
+						flg = false;
+
 						for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); pPlayer++)
 						{
 							pPlayer->Clear();
@@ -107,35 +171,25 @@ void Game::Play(sf::RenderWindow& window, sf::Cursor& cursor, sf::Sprite ex_b)
 					}
 				}
 			}
+
+			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+			if (ex_b.getGlobalBounds().contains(mousePos.x, mousePos.y))
+			{
+				cursor.loadFromSystem(sf::Cursor::Hand);
+				window.setMouseCursor(cursor);
+			}
+			else
+			{
+				cursor.loadFromSystem(sf::Cursor::Arrow);
+				window.setMouseCursor(cursor);
+			}
+
+			window.clear(sf::Color::White);
+
+			window.draw(ex_b);
+
+			window.display();
 		}
-
-		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-
-		if (ex_b.getGlobalBounds().contains(mousePos.x, mousePos.y))
-		{
-			cursor.loadFromSystem(sf::Cursor::Hand);
-			window.setMouseCursor(cursor);
-		}
-		else
-		{
-			cursor.loadFromSystem(sf::Cursor::Arrow);
-			window.setMouseCursor(cursor);
-		}
-
-		window.clear(sf::Color::White);
-
-		for (vector<sf::Sprite>::iterator i = House_cards.begin(); i != House_cards.end(); i++)
-		{
-			window.draw(*i);
-		}
-
-		for (vector<sf::Sprite>::iterator i = Player_cards.begin(); i != Player_cards.end(); i++)
-		{
-			window.draw(*i);
-		}
-
-		window.draw(ex_b);
-
-		window.display();
 	}
 }

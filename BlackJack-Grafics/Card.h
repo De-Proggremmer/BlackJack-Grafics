@@ -13,11 +13,11 @@ public:
 
 	// friend ostream& operator<<(ostream& os, const Card& aCard);
 
-	Card(rank r, suit s, sf::Sprite m_CardFaceSprite, sf::Sprite m_CoverSprite, bool ifu = true);
+	Card(rank r, suit s, sf::Texture m_CardFaceSprite, sf::Texture m_CoverSprite, bool ifu = true);
 
 	int GetValue() const;
 
-	sf::Sprite GetSprite() const;
+	sf::Texture& GetTexture() const;
 
 	void Flip();
 
@@ -26,8 +26,8 @@ private:
 	suit m_Suit;
 	bool m_IsFaceUp;
 
-	sf::Sprite m_CardSprite;
+	sf::Texture& m_CardSprite;
 
-	sf::Sprite m_CardFaceSprite;
-	sf::Sprite m_CoverSprite;
+	sf::Texture m_CardFaceSprite;
+	sf::Texture m_CoverSprite;
 };

@@ -18,10 +18,10 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 
 	sf::Text question;
 	question.setFont(pixel_font);
-	question.setCharacterSize(30);
-	question.setFillColor(sf::Color::Transparent);
+	question.setCharacterSize(24);
+	question.setFillColor(sf::Color::Black);
 	question.setPosition(810, 300);
-	question.setString("dddddddd");
+	question.setString(L"Карту нннада?");
 
 
 	sf::Texture y_button;
@@ -44,15 +44,6 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 	N_botton.setTexture(n_button);
 	N_botton.setPosition(1090, 450);
 
-	window.clear(sf::Color::White);
-
-	window.draw(question);
-	window.draw(Y_botton);
-	window.draw(N_botton);
-
-	window.display();
-
-	bool hitting;
 
 	while (true)
 	{
@@ -67,13 +58,15 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 
 					if (Y_botton.getGlobalBounds().contains(mousePos.x, mousePos.y))
 					{
-						hitting = true;
-						return hitting;
+						window.clear(sf::Color::White);
+						window.display();
+						return true;
 					}
 					else if (N_botton.getGlobalBounds().contains(mousePos.x, mousePos.y))
 					{
-						hitting = false;
-						return hitting;
+						window.clear(sf::Color::White);
+						window.display();
+						return false;
 					}
 				}
 			}
@@ -91,8 +84,16 @@ bool Player::IsHitting(sf::RenderWindow &window, sf::Cursor& cursor) const
 			cursor.loadFromSystem(sf::Cursor::Arrow);
 			window.setMouseCursor(cursor);
 		}
-	}
 
+		window.clear(sf::Color::White);
+
+		window.draw(question);
+		window.draw(Y_botton);
+		window.draw(N_botton);
+
+		window.display();
+
+	}
 }
 
 void Player::Win(sf::RenderWindow& window) const
@@ -106,9 +107,9 @@ void Player::Win(sf::RenderWindow& window) const
 	sf::Text note;
 	note.setFont(pixel_font);
 	note.setCharacterSize(30);
-	note.setFillColor(sf::Color::Transparent);
+	note.setFillColor(sf::Color::White);
 	note.setPosition(810, 780);
-	note.setString("Кликните, чтобы продолжить");
+	note.setString(L"Кликните, чтобы продолжить");
 
 
 	sf::Texture win_texture;
@@ -128,7 +129,10 @@ void Player::Win(sf::RenderWindow& window) const
 	window.draw(win_note);
 	window.draw(note);
 
-	while (true)
+	window.display();
+
+	bool flg = true;
+	while (flg)
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -138,7 +142,8 @@ void Player::Win(sf::RenderWindow& window) const
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					window.clear(sf::Color::White);
-					break;
+					window.display();
+					flg = false;
 				}
 			}
 		}
@@ -156,9 +161,9 @@ void Player::Lose(sf::RenderWindow& window) const
 	sf::Text note;
 	note.setFont(pixel_font);
 	note.setCharacterSize(30);
-	note.setFillColor(sf::Color::Transparent);
+	note.setFillColor(sf::Color::White);
 	note.setPosition(810, 780);
-	note.setString("Кликните, чтобы продолжить");
+	note.setString(L"Кликните, чтобы продолжить");
 
 
 	sf::Texture win_texture;
@@ -178,7 +183,10 @@ void Player::Lose(sf::RenderWindow& window) const
 	window.draw(win_note);
 	window.draw(note);
 
-	while (true)
+	window.display();
+
+	bool flg = true;
+	while (flg)
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -188,7 +196,8 @@ void Player::Lose(sf::RenderWindow& window) const
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					window.clear(sf::Color::White);
-					break;
+					window.display();
+					flg = false;
 				}
 			}
 		}
@@ -206,9 +215,9 @@ void Player::Draw(sf::RenderWindow& window) const
 	sf::Text note;
 	note.setFont(pixel_font);
 	note.setCharacterSize(30);
-	note.setFillColor(sf::Color::Transparent);
+	note.setFillColor(sf::Color::White);
 	note.setPosition(810, 780);
-	note.setString("Кликните, чтобы продолжить");
+	note.setString(L"Кликните, чтобы продолжить");
 
 
 	sf::Texture win_texture;
@@ -227,8 +236,11 @@ void Player::Draw(sf::RenderWindow& window) const
 
 	window.draw(win_note);
 	window.draw(note);
+	
+	window.display();
 
-	while (true)
+	bool flg = true;
+	while (flg)
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -238,7 +250,8 @@ void Player::Draw(sf::RenderWindow& window) const
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					window.clear(sf::Color::White);
-					break;
+					window.display();
+					flg = false;
 				}
 			}
 		}
